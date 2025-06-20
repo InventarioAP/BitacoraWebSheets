@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácora Inventario Diario</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-center">
+        <div class="container" id="printableArea"> <header>
+                <h1>BITACORA INVENTARIO DIARIO</h1>
+                <p>INVENTARIO ALUMBRADO PÚBLICO</p>
+            </header>
+
+            <section class="report-info">
+                <div class="info-row">
+                    <label for="oficialInventario">Oficial de Inventario:</label>
+                    <input type="text" id="oficialInventario" class="center-input" placeholder="Nombre del técnico" list="sugerenciasOficiales" required>
+                    
+                    <datalist id="sugerenciasOficiales">
+                        <option value="EDGAR RODOLFO MACZ PACAY"></option>
+                        <option value="EMANUEL DE JESÚS CERMEÑO"></option>
+                        <option value="JASON NOE VASQUEZ ALONZO"></option>
+                        <option value="MARCO EMMANUEL ALEXANDER ORDOÑEZ PÉREZ"></option>
+                        <option value="MIGUEL ANGEL CHÁVEZ PIO"></option>
+                        <option value="VITALINO VEGA ESCOBAR"></option>
+                    </datalist>
+                </div>
+
+                <div class="info-row info-row-fecha-hora">
+                    <label for="fechaReporte">Fecha de Reporte:</label>
+                    <input type="date" id="fechaReporte" placeholder="Fecha de bitacora" required>
+                    <label for="horaReporte">Hora de Reporte:</label>    
+                    <input type="time" id="horaReporte"  placeholder="Hora de bitacora" required>
+                </div>
+            </section>
+
+            <section class="device-inventory">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DISPOSITIVOS</th>
+                            <th>CANTIDAD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cámaras</td>
+                            <td><input type="number" id="cantCamaras" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Cronómetros</td>
+                            <td><input type="number" id="cantCronometros" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Direccionales</td>
+                            <td><input type="number" id="cantDireccionales" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Lámparas</td>
+                            <td><input type="number" id="cantLamparas" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Mupis</td>
+                            <td><input type="number" id="cantMupis" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Ornamentales</td>
+                            <td><input type="number" id="cantOrnamentales" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Pantallas Informativas</td>
+                            <td><input type="number" id="cantPantallasInformativas" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Parada Transmetro</td>
+                            <td><input type="number" id="cantParadaTransmetro" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Parada Transurbano</td>
+                            <td><input type="number" id="cantParadaTransurbano" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Reflectores</td>
+                            <td><input type="number" id="cantReflectores" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Semáforos</td>
+                            <td><input type="number" id="cantSemaforos" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Vallas Publicitarias</td>
+                            <td><input type="number" id="cantVallasPublicitarias" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Wal-Pak</td>
+                            <td><input type="number" id="cantWalPak" class="quantity-input" value=""></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Total de Dispositivos:</td>
+                            <td><span id="totalDispositivos">0</span></td>  
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="municipal-info">
+                <div class="info-row">
+                    <label for="acompananteMunicipal">ACOMPAÑANTE MUNICIPAL:</label>
+                    <input placeholder="Nombre acompañante municipal" type="text" id="acompananteMunicipal" list="sugerenciasAcompanantes" required>
+                    <datalist id="sugerenciasAcompanantes">
+                        <option value="SIN ACOMPAÑAMIENTO MUNICIPAL"></option>
+                    </datalist>
+                </div>
+                <div class="info-row">
+                    <label for="dpiCle">DPI (CUI):</label>
+                    <input placeholder="DPI acompañate municipal" type="text" id="dpiCle" maxlength="13" pattern="\d{13}" inputmode="numeric" title="Debe contener 13 dígitos numéricos">
+                    <label for="movil">MÓVIL:</label>
+                    <input placeholder="Numero de telefono" type="text" id="movil" maxlength="8" pattern="\d{8}" inputmode="numeric" title="Debe contener 8 dígitos numéricos">
+                </div>
+                <div class="info-row">
+                    <label for="municipalidad">MUNICIPALIDAD:</label>
+                    <input type="text" id="municipalidad" placeholder="Nombre de la municipalidad" list="sugerenciasMunicipalidades" required>
+                    <datalist id="sugerenciasMunicipalidades"></datalist>
+                </div>
+                <div class="info-row">
+                    <label for="cargoMunicipal">CARGO MUNICIPAL:</label>
+                    <input placeholder="Puesto dentro de la muni" type="text" id="cargoMunicipal">
+                </div>
+            </section>
+            
+            <section class="signatures">
+    <div class="signature-block">
+        <label for="firmaAcompananteImg">FIRMA ACOMPAÑANTE MUNICIPAL</label>
+        <img id="firmaAcompananteImg" class="signature-img" style="display:none;"/>
+        <button type="button" class="edit-signature-btn" data-target="firmaAcompanante">Agregar/Editar firma</button>
+        <input type="hidden" id="firmaAcompananteData" name="firma_acompanante_data">
+        <label for="firmaOficialImg">Firma digital</label>
+    </div>
+    <div class="signature-block">
+        <label for="firmaOficialImg">FIRMA OFICIAL DE INVENTARIO (GAUSS)</label>
+        <img id="firmaOficialImg" class="signature-img" style="display:none;"/>
+        <button type="button" class="edit-signature-btn" data-target="firmaOficial">Agregar/Editar firma</button>
+        <input type="hidden" id="firmaOficialData" name="firma_oficial_data" required>
+        <label for="firmaOficialImg">Firma digital</label>
+    </div>
+</section>
+
+<!-- Modal para capturar la firma -->
+<div id="signatureModal" class="signature-modal" style="display:none;">
+    <div class="signature-modal-content">
+        <canvas id="modalSignatureCanvas" width="1200" height="500"></canvas>
+        <div style="margin-top:10px;">
+            <button type="button" id="clearModalSignature">Limpiar</button>
+            <button type="button" id="saveModalSignature">Guardar</button>
+            <button type="button" id="closeModalSignature">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+            <section class="observations">
+				<label for="observaciones" style="display:flex;justify-content:space-between;align-items:center;">
+                <span>OBSERVACIONES:</span>
+                <span id="contadorObservaciones" style="font-size:0.70em;color:#555;">0/165</span>
+                </label>
+                <textarea placeholder="Ejemplo: Zona trabajada, acompañante se retiro antes de tiempo, no firmaron por tal motivo, problemas con algo en especifico..." id="observaciones" rows="3" maxlength="195"></textarea>
+			</section>
+
+            <div class="logos">
+                <img src="img/gauss-1000.png" alt="GAUSS Logo" class="gauss-logo">
+                <img src="img/EEGSA-1.png" alt="EEGSA Logo" class="eegsa-logo">
+            </div>
+            <div class="logosiso">
+                <img src="img/IQNET.png" alt="IQNET Logo" class="iqnet-logo">
+                <img src="img/ICONTEC.png" alt="IQNET Logo" class="iqnet-logo">
+            </div>
+        </div>
+        <button type="button" id="submitAndDownloadBtn" class="action-button">Descargar PDF</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.0/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="scripts.js"></script>
+    <style>
+        
+.center-input {
+    text-align: center;
+    color: rgb(0,112,192);
+    /*font-weight: bold;*/
+}
+.signature-modal {
+    position: fixed; z-index: 9999; left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+}
+.signature-modal-content {
+    background: #fff;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: 0 2px 10px #0003;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw; /*width: 100vw;*/
+    height: 100vh; /*height: 100vh;*/
+    justify-content: flex-start; /* Pega el contenido arriba */
+    padding-top: 32px;           /* Espacio superior opcional */
+}
+
+#modalSignatureCanvas {
+    width: 98vw !important;      /* El ancho del canvas será el 45% del ancho de la ventana del navegador (viewport width). El !important asegura que este valor tenga prioridad sobre otros estilos. */
+    height: 30vh !important;     /* El alto del canvas será el 30% de la altura de la ventana del navegador (viewport height). */
+    /*height: 15vh !important; */
+    max-width: 100vw; /*98vw*/             /* El ancho máximo del canvas nunca será mayor al 98% del ancho de la ventana, para evitar desbordes. */
+    max-height: 40vh;            /* El alto máximo del canvas nunca será mayor al 40% de la altura de la ventana. */
+    border: 1px solid #ccc;      /* El canvas tendrá un borde gris claro de 1 píxel. */
+    background: #fff;            /* El fondo del canvas será blanco. */
+    touch-action: none;          /* Desactiva la acción predeterminada de gestos táctiles (como hacer scroll o zoom) sobre el canvas, permitiendo dibujar con el dedo en dispositivos móviles. */
+}
+
+@media (max-width: 600px) {
+    #modalSignatureCanvas {
+        width: 95vw !important;
+        height: 30vh !important;
+        max-width: 95vw;
+        max-height: 30vh;
+    }
+}
+
+/* Botones grandes y espaciados en el modal de firma */
+.signature-modal-content button {
+    font-size: 1.3em;
+    padding: 16px 32px;
+    margin: 0 10px;
+    border-radius: 8px;
+    border: none;
+    background: rgb(0,112,192);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.signature-modal-content button:hover {
+    background: rgb(0,90,160);
+}
+
+.signature-img {
+    max-width: 70%;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    object-fit: contain;
+}
+</style>
+</body>
+</html>

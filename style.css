@@ -1,0 +1,508 @@
+html {
+  font-size: 14px; /* Base explícita (opcional) */
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    background-color: #f4f4f4;
+    display: flex; /* Activa Flexbox para el body */
+    justify-content: center; /* Centra horizontalmente el contenido del body */
+    align-items: flex-start; /* Alinea el contenido al inicio (arriba) verticalmente */
+    min-height: 100vh; /* Asegura que el body ocupe al menos el 100% de la altura de la ventana */
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #fff;
+    padding: 50px; /* Aumenta el margen interno de la hoja */
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 210mm; /* Ancho A4 para pantallas grandes */
+    min-height: 297mm; /* Altura A4 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    /* No necesitamos 'margin: auto;' aquí porque el 'body' ya lo centra */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+    color: #333;
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 15px;
+    color: #555;
+}
+
+.report-info,
+.municipal-info,
+.observations {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.info-row {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.info-row label {
+    font-weight: bold;
+    margin-right: 5px;
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+.info-row input[type="text"],
+.info-row input[type="date"],
+.info-row input[type="time"] {
+    flex-grow: 1;
+    border: none;
+    border-bottom: 1px solid #000;
+    padding: 2px 0;
+    font-size: 14px;
+    outline: none;
+    min-width: 150px;
+}
+
+.report-info .info-row input[type="text"]:first-of-type {
+    min-width: 200px;
+}
+
+.info-row-fecha-hora {
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.device-inventory {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 65%;
+    border-collapse: collapse;
+    margin-top: 5px;
+    margin-left: auto;   /* Esto centrará la tabla horizontalmente */
+    margin-right: auto;  /* Esto centrará la tabla horizontalmente */
+}
+
+table th,
+table td {
+    border: 1px solid #000;
+    padding: 0;
+    text-align: left;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+}
+
+.total-row {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+.total-row td:first-child {
+    text-align: center;
+}
+
+.signatures {
+    display: flex;
+    flex-direction: row; /* Siempre en fila */
+    flex-wrap: nowrap; /* Evita que se envuelva */
+    justify-content: space-around; /* Distribuye las firmas con espacio */
+    margin-top: 0px;
+    margin-bottom: 0px;
+    gap: 10px; /* Espacio mínimo entre bloques de firma */
+}
+
+.signature-block {
+    text-align: center;
+    width: 48%; /* Permite que cada bloque tome casi la mitad del espacio */
+    max-width: 450px;
+    margin: 0; /* Elimina el margen auto aquí, el flexbox padre lo maneja */
+    flex-shrink: 1; /* Permite que los bloques se encojan un poco si es necesario */
+    min-width: 180px; /* Ancho mínimo para que no se compriman demasiado */
+}
+
+.signature-block label {
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.signature-canvas {
+    border: 1px dashed #666;
+    background-color: #f9f9f9;
+    cursor: crosshair;
+    width: 100%;
+    height: 90px;
+    display: block;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.clear-signature-btn {
+    margin-top: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+.clear-signature-btn:hover {
+    background-color: #ddd;
+}
+
+.observations label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+.observations textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.5rem; /* Ajusta el tamaño de fuente */
+    /* resize: vertical; */
+    min-height: 60px;
+    /* height: 36px; */
+    box-sizing: border-box;
+}
+
+#observaciones {
+    /* font-size: 1em; */
+    font-size: 0.5rem; /* Ajusta el tamaño de fuente */
+    padding: 8px;
+    line-height: 1.4;
+    /* resize: vertical; */
+    min-height: 60px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+}
+
+
+.logos {
+    display: flex;
+    flex-direction: row; /* Siempre en fila */
+    flex-wrap: nowrap; /* Evita que se envuelva */
+    justify-content: space-between; /* Un logo a cada extremo */
+    /*align-items: center; /* Centra verticalmente los logos */
+    padding-top: 0px;
+    margin-top: 0px; /* Separa los logos del cuadro de observaciones */
+}
+.logosiso{
+    display: flex;
+    flex-direction: row; /* Siempre en fila */
+    flex-wrap: nowrap; /* Evita que se envuelva */
+    justify-content: flex-start; /* Pegados a la izquierda */
+    align-items: center; /* Centra verticalmente los logos */
+    width: 100%;
+}
+.iqnet-logo {
+    width: 70px;
+    max-width: 50;
+    height: 70px;
+    margin-right: 10px; /* Espacio entre el logo y el texto */
+}
+
+.gauss-logo {
+    width: 200px;
+    max-width: 300px;
+    height: auto;
+}
+
+.eegsa-logo {
+    width: 150px;
+    max-width: 200px;
+    height: auto;
+}
+
+.device-inventory table .quantity-input {
+    width: 95%;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 5px;
+    border: none;
+    background: transparent;
+    box-sizing: border-box;
+    -moz-appearance: textfield;
+    font-size: 14px;
+    color: #000;
+}
+
+.device-inventory table .quantity-input::-webkit-outer-spin-button,
+.device-inventory table .quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.device-inventory table td {
+    height: 20px;
+    vertical-align: middle;
+}
+
+/* Encabezado de la tabla */
+.device-inventory thead th {
+    background: rgb(0,112,192);
+    color: #fff;
+}
+/* Fila de total de dispositivos */
+.device-inventory .total-row td, 
+.device-inventory .total-row span {
+    background: rgb(189,214,238);
+    font-weight: bold;
+}
+
+#totalDispositivos {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-weight: bold;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+.action-button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 25px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+    background-color: #45a049;
+}
+
+/* Table column widths */
+.device-inventory table {
+    table-layout: fixed;
+}
+
+.device-inventory table th:nth-child(1),
+.device-inventory table td:nth-child(1) {
+    width: 70%;
+}
+
+.device-inventory table th:nth-child(2),
+.device-inventory table td:nth-child(2) {
+    width: 30%;
+    text-align: center;
+}
+
+/* Media Queries (ajustados para reflejar los cambios de fila forzada) */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    header p {
+        font-size: 14px;
+    }
+
+    .report-info,
+    .municipal-info,
+    .observations {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .info-row label {
+        min-width: 100px;
+    }
+
+    .info-row input[type="text"],
+    .info-row input[type="date"],
+    .info-row input[type="time"] {
+        font-size: 13px;
+        min-width: unset;
+    }
+
+    .device-inventory {
+        width: 100%;
+    }
+
+    table th,
+    table td {
+        font-size: 13px;
+    }
+
+    .signature-canvas {
+        height: 80px;
+    }
+
+    /* Los logos y firmas ya no cambiarán de dirección en media queries */
+    .gauss-logo,
+    .eegsa-logo {
+        width: 100px; /* Reducir el tamaño de los logos para pantallas más pequeñas */
+    }
+    .signature-block {
+        width: 45%; /* Darles un poco más de espacio a las firmas */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 18px;
+    }
+
+    header p {
+        font-size: 13px;
+    }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .info-row label {
+        min-width: unset;
+    }
+
+    .info-row input[type="text"],
+    .info-row input[type="date"],
+    .info-row input[type="time"] {
+        font-size: 13px;
+        /* width: 100%; */
+    }
+
+    /* Las firmas y logos se mantienen en fila, pero pueden requerir desplazamiento horizontal */
+    .signatures {
+        gap: 5px; /* Reducir aún más el espacio entre firmas */
+    }
+    .signature-block {
+        width: 48%; /* Mantener el 48% pero podría desbordarse */
+        min-width: 150px; /* Un mínimo para evitar compresión extrema */
+    }
+
+    .signature-canvas {
+        height: 70px;
+    }
+
+    .gauss-logo,
+    .eegsa-logo {
+        width: 80px; /* Logos aún más pequeños */
+    }
+
+    .action-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+
+/* Print styles */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .container {
+        padding: 15mm;
+        min-height: 277mm;
+        page-break-after: avoid;
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: none;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    table th,
+    table td {
+        border: 1px solid #000 !important;
+        background-color: transparent !important;
+    }
+
+    .device-inventory table .quantity-input {
+        border: none !important;
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+    }
+
+    .logos {
+        position: absolute;
+        bottom: 15mm;
+        width: calc(100% - 30mm);
+        flex-direction: row; /* Siempre en fila para impresión */
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .signatures {
+        flex-direction: row; /* Siempre en fila para impresión */
+    }
+
+    .action-button {
+        display: none;
+    }
+}
+
+/* Ajustes específicos para el textarea de observaciones en pantallas pequeñas con vista de escritorio */
+@media (max-width: 3000px) { /* Puedes ajustar este valor según tus pruebas */
+    .observations textarea,
+    #observaciones {
+        font-size: 0.5rem; /* O el tamaño que consideres adecuado para que se vea legible */
+        /* Si es necesario, también puedes ajustar el padding */
+        padding: 6px 8px;
+    }
+}
+
+/* Mantén tus estilos existentes para pantallas muy pequeñas si son relevantes */
+@media (max-width: 600px) {
+    .observations textarea,
+    #observaciones {
+        font-size: 0.5rem; /* Este ya lo tenías, asegúrate de que no entre en conflicto con el de arriba si el de arriba es más específico */
+        padding: 6px;
+    }
+}
