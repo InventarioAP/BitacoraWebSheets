@@ -189,6 +189,14 @@ document.addEventListener('DOMContentLoaded', function() {
         actualizarContador();
     }
 
+    //Convertir todo en mayusculas
+    const inputsToUpper = document.querySelectorAll('#acompananteMunicipal, #municipalidad, #cargoMunicipal, #observaciones');
+    inputsToUpper.forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+    });
+
     // --- Función para enviar datos a Google Sheets ---
     async function enviarDatosAGoogleSheets() {
         // Validar campos obligatorios
@@ -499,11 +507,23 @@ if (document.readyState === 'loading') {
     document.getElementById('submitAndDownloadBtn').addEventListener('click', async function(e) {
         e.preventDefault();
 
+        const submitBtn = this;
+        // Bloquear el botón para evitar envíos dobles
+        if (submitBtn.disabled) return; // Si ya está deshabilitado, no hacer nada
+
+        submitBtn.disabled = true;
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Enviando datos...';
+
         // Primero enviar datos a Google Sheets
         const envioExitoso = await enviarDatosAGoogleSheets();
-        //enviarDatosAGoogleSheets()
-        // Solo generar PDF si el envío fue exitoso
-        //if (envioExitoso) {
+
+        // Restaurar el botón después del envío
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+
+        // Solo generar PDF si el envío fue exitoso (descomenta si lo necesitas)
+        // if (envioExitoso) {
         generarPDF();
         //}
     });
