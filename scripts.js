@@ -203,10 +203,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const oficialInventario = document.getElementById('oficialInventario').value;
         const fechaReporte = document.getElementById('fechaReporte').value;
         const horaReporte = document.getElementById('horaReporte').value;
-        const municipalidad = document.getElementById('municipalidad').value;
+        const municipalidad = document.getElementById('municipalidad').value.trim().toUpperCase();
         const acompananteMunicipal = document.getElementById('acompananteMunicipal').value;
         const firmaOficialData = document.getElementById('firmaOficialData').value;
 
+        // Validación de campos obligatorios
         if (!oficialInventario || !fechaReporte || !horaReporte || !municipalidad) {
             alert('Por favor complete los campos obligatorios: Oficial de Inventario, Fecha, Hora de Reporte y Municipalidad');
             return false;
@@ -220,8 +221,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
 
+        // --- Ya NO pedir zona aquí, solo en el blur del input municipalidad ---
+
         // --- Obtener imágenes de firmas en base64 ---
-        // Si no hay firma, será cadena vacía
         function getImgBase64ById(imgId) {
             const img = document.getElementById(imgId);
             if (img && img.src && img.style.display !== 'none') {
@@ -233,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const firmaOficialImgBase64 = getImgBase64ById('firmaOficialImg');
 
         // Recolectar todos los datos del formulario en un objeto FormData
-        const formData = new URLSearchParams(); // Usar URLSearchParams para codificar como x-www-form-urlencoded
+        const formData = new URLSearchParams();
         formData.append('Oficial_Inventario', oficialInventario);
         formData.append('Fecha_Reporte', fechaReporte);
         formData.append('Hora_Reporte', horaReporte);
@@ -262,51 +264,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Agregar firmas en base64
         formData.append('FirmaMuni', firmaAcompananteImgBase64 || 'SIN FIRMA');
         formData.append('FirmaGauss', firmaOficialImgBase64 || 'SIN FIRMA');
-        
-        // try {
-            // Mostrar mensaje de carga
-            const submitBtn = document.getElementById('submitAndDownloadBtn');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Enviando datos...';
 
-            // URL de tu Web App de Google Apps Script
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbynFz2Ko76HAdEO0fKWeweYYGEFaFGgmiFrcASFYfmBlKsr371T8LYuh9ovir37-6g/exec';
+        // Envío de datos (resto de tu función igual)
+        const submitBtn = document.getElementById('submitAndDownloadBtn');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando datos...';
 
-            const response = await fetch(scriptUrl, {
-                method: 'POST',
-                // No necesitamos 'Content-Type': 'application/json'
-                // fetch con URLSearchParams automáticamente establece 'Content-Type': 'application/x-www-form-urlencoded'
-                body: formData // Enviar como URLSearchParams
-            });
-            //const submitBtn = document.getElementById('submitAndDownloadBtn');
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText; // Restaurar el texto original del botón
-            // Verificar si la solicitud fue exitosa
-            // if (!response.ok) {
-            //     throw new Error(`Error HTTP: ${response.status}`);
-            // }
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbynFz2Ko76HAdEO0fKWeweYYGEFaFGgmiFrcASFYfmBlKsr371T8LYuh9ovir37-6g/exec';
 
-            // // Si la función doPost en Apps Script devuelve "OK" como texto simple,
-            // // podemos verificarlo así:
-            // const responseText = await response.text();
-            // if (responseText === "OK") {
-            //     console.log('Datos enviados correctamente a Google Sheets');
-            //     return true;
-            // } else {
-            //     console.error('Error al enviar datos: Respuesta inesperada del servidor:', responseText);
-            //     alert('Ocurrió un error al enviar los datos. Respuesta del servidor: ' + responseText);
-            //     return false;
-            // }
-        // } catch (error) {
-        //     console.error('Error al enviar datos:', error);
-        //     alert('Ocurrió un error al enviar los datos. Por favor intente nuevamente.');
-        //     return false;
-        // } finally {
-        //     const submitBtn = document.getElementById('submitAndDownloadBtn');
-        //     submitBtn.disabled = false;
-        //     submitBtn.textContent = originalText; // Restaurar el texto original del botón
-        // }
+        const response = await fetch(scriptUrl, {
+            method: 'POST',
+            body: formData
+        });
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+
+        // Si llegaste aquí, el envío fue exitoso
+        return true;
     }
 
     // --- Función para generar PDF ---
@@ -509,7 +484,7 @@ if (document.readyState === 'loading') {
 
         const submitBtn = this;
         // Bloquear el botón para evitar envíos dobles
-        if (submitBtn.disabled) return; // Si ya está deshabilitado, no hacer nada
+        if (submitBtn.disabled) return;
 
         submitBtn.disabled = true;
         const originalText = submitBtn.textContent;
@@ -522,9 +497,35 @@ if (document.readyState === 'loading') {
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
 
-        // Solo generar PDF si el envío fue exitoso (descomenta si lo necesitas)
-        // if (envioExitoso) {
-        generarPDF();
-        //}
+        // Solo generar PDF si el envío fue exitoso
+        if (envioExitoso) {
+            generarPDF();
+        }
     });
+
+municipalidadInput.addEventListener('blur', function() {
+    const muni = municipalidadInput.value.trim().toUpperCase();
+    if (["SAN LUCAS SACATEPEQUEZ", "MIXCO", "VILLA NUEVA", "GUATEMALA"].includes(muni)) {
+        let zona = "";
+        while (!zona || isNaN(zona)) {
+            zona = prompt("Por favor ingrese la zona (solo números) para la municipalidad seleccionada:");
+            if (zona === null) {
+                alert("Debe ingresar la zona para continuar.");
+                return;
+            }
+            zona = zona.trim();
+        }
+        // Agregar la zona a observaciones solo si aún no está
+        const observacionesInput = document.getElementById('observaciones');
+        if (observacionesInput) {
+            if (!observacionesInput.value.startsWith(`ZONA: ${zona}`)) {
+                if (observacionesInput.value) {
+                    observacionesInput.value = `ZONA: ${zona} - ${observacionesInput.value}`;
+                } else {
+                    observacionesInput.value = `ZONA: ${zona}`;
+                }
+            }
+        }
+    }
+});
 });
